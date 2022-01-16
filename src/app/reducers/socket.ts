@@ -1,17 +1,17 @@
 
 import { SocketStore } from '../../types/store';
-import { FEED, INFO, SocketActionTypes, SUBSCRIBED } from '../actions/socket/types';
+import { FEED, INFO, SocketActionTypes, SUBSCRIBED, UNSUBSCRIBE } from '../actions/socket/types';
 import { calculateMaxTotal } from '../../tools/helpers';
 
-const initialState = {
+export const initialState: SocketStore = {
     subscribedProductId: "",
     asks: [],
-    asksSets: {},
-    bidsSet: {},
     bids: [],
     totalAsks: [],
     totalBids: [],
     totalMax: 0,
+    status: "UNSUBSCRIBED",
+    hasNotification: undefined
 }
 
 export default function socketReducer(state: SocketStore, action: SocketActionTypes) {
@@ -27,14 +27,22 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
             }
 
         case SUBSCRIBED:
-            console.log("SUBSCRIBED", action.data)
-            const { product_ids } = action.data
-            console.log({ product: product_ids[0] })
+            const { product_ids } = action.data;
             return {
                 ...state,
-                subscribedProductId: product_ids[0]
+                subscribedProductId: product_ids[0],
+                status: "SUBSCRIBED", 
+                hasNotification: undefined
             }
-
+        case UNSUBSCRIBE:
+            return {
+                ...state,
+                status: "UNSUBSCRIBED", 
+                hasNotification: {
+                    message: "Unsubsribed from any data source.",
+                    level: "ERROR"
+                }
+            }
         case FEED:
             const {
                 data: {
@@ -43,24 +51,13 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
                     bids
                 }
             } = action;
-
-            let newAsksSet = { ...state.asksSet };
             let removeZeroesFromAsk = [...state.asks];
             let removeZeroesFromBid = [...state.bids];
-            let newBidsSet = { ...state.bidsSet };
-            let newTotalAsks = [...state.totalAsks];
-            let newTotalBids = [...state.totalBids];
+            let newTotalAsks = [] as number[];
+            let newTotalBids = [] as number[];
 
             // If numLevels then initial state of orderbook.
             if (numLevels) {
-                console.log(numLevels)
-                for (let ask of asks) {
-                    newAsksSet[ask[0]] = ask[1]
-                }
-                for (let bid of bids) {
-                    newBidsSet[bid[0]] = bid[1]
-                }
-
                 //  Sort the arrays of asks and bids.
                 asks.sort((a, b) => b[0] - a[0]);
                 bids.sort((a, b) => a[0] - b[0]);
@@ -86,8 +83,6 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
                 return {
                     ...state,
                     asks,
-                    asksSet: newAsksSet,
-                    bidsSet: newBidsSet,
                     bids,
                     totalAsks: newTotalAsks,
                     totalBids: newTotalBids
@@ -157,20 +152,21 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
                 for (let i = 0; i < removeZeroesFromAsk.length; i++) {
                     // Calculate totals
                     if (i === 0) {
-                        newTotalAsks[0] = removeZeroesFromAsk[i][1]
+                        newTotalAsks.push(removeZeroesFromAsk[i][1])
                     } else {
-                        newTotalAsks[i] = newTotalAsks[i - 1] + removeZeroesFromAsk[i][1]
+                        newTotalAsks.push(newTotalAsks[i - 1] + removeZeroesFromAsk[i][1])
                     }
                 }
+                console.log(newTotalAsks[0])
 
                 // Calculate new totals for bids.
 
                 for (let i = 0; i < removeZeroesFromBid.length; i++) {
                     // Calculate totals
                     if (i === 0) {
-                        newTotalBids[0] = removeZeroesFromBid[i][1]
+                        newTotalBids.push(removeZeroesFromBid[i][1]);
                     } else {
-                        newTotalBids[i] = newTotalBids[i - 1] + removeZeroesFromBid[i][1]
+                        newTotalBids.push(newTotalBids[i - 1] + removeZeroesFromBid[i][1]);
                     }
                 }
 
@@ -181,9 +177,7 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
             return {
                 ...state,
                 asks: removeZeroesFromAsk,
-                asksSet: newAsksSet,
                 bids: removeZeroesFromBid,
-                bidsSet: newBidsSet,
                 totalAsks: newTotalAsks,
                 totalBids: newTotalBids,
                 totalMax: newMax

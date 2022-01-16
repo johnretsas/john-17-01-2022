@@ -3,14 +3,19 @@ import { Provider, useDispatch } from "react-redux"
 import { useEffect } from 'react';
 import { FEED, INFO, SUBSCRIBED } from './app/actions/socket/types';
 import Header from "./components/Header";
-import { createSocketInfoAction, createSocketSaveFeedAction, createSocketSubscribedAction } from "./app/actions/socket";
+import { createSocketInfoAction, createSocketSaveFeedAction, createSocketSubscribedAction, createSocketUnsubscribedAction } from "./app/actions/socket";
 import { store } from "./app/store";
 import Orderbook from "./components/Orderbook";
+
+import { usePageVisibility } from "./tools/hooks";
+
 const ws = new WebSocket("wss://www.cryptofacilities.com/ws/v1");
+
 
 const App = () => {
 
   const dispatch = useDispatch();
+  const isVisible = usePageVisibility();
 
   useEffect(() => {
     ws.onopen = () => {
@@ -24,19 +29,22 @@ const App = () => {
         dispatch(createSocketInfoAction(data))
       } else if (data.event === "subscribed") {
         dispatch(createSocketSubscribedAction(data))
+      } else if (data.event === "unsubscribed") {
+        dispatch(createSocketUnsubscribedAction(data))
       } else if (data.feed) {
         dispatch(createSocketSaveFeedAction(data))
       }
     };
 
-    setTimeout(() => ws.close(), 1000)
+    // setTimeout(() => ws.send(JSON.stringify({ "event": "unsubscribe", "feed": "book_ui_1", "product_ids": ["PI_XBTUSD"] })), 1000)
+    // setTimeout(() => ws.close(), 3000)
   }, []);
-
+  console.log("WS", ws)
   return (
     <div className="App">
       <Provider store={store}>
         <Header />
-        <Orderbook ws={ws}/>
+        <Orderbook ws={ws} isVisible={isVisible}/>
       </Provider>
     </div>
   );

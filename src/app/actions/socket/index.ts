@@ -1,4 +1,4 @@
-import { INFO, SUBSCRIBED, FEED, SocketActionTypes, SOCKET_ACTION } from "./types";
+import { INFO, SUBSCRIBED, FEED, UNSUBSCRIBE, SocketActionTypes, SOCKET_ACTION } from "./types";
 
 export const createSocketAction = (data: any) => {
     return {
@@ -24,6 +24,13 @@ export const createSocketSubscribedAction = (data: any) => {
 export const createSocketSaveFeedAction = (data: any) => {
     return {
         type: FEED,
+        data
+    }
+}
+
+export const createSocketUnsubscribedAction = (data: any) => {
+    return {
+        type: UNSUBSCRIBE,
         data
     }
 }

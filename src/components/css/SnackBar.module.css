@@ -1,0 +1,12 @@
+.container {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    padding: var(--gutterMd);
+    box-shadow: var(--chrome-box-shadow);
+    color: whitesmoke;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    width: 150px;
+    height: 100px;
+}
