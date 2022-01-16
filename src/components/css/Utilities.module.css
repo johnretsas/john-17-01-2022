@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: var(--gutterLg);
+}
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--gutterMd);
+    font-weight: 500;
+    border-radius: 4px;
+    box-shadow: var(--chrome-box-shadow);
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.toggleFeedButton {
+    background-color: rgb(95, 11, 95);
+}
+
+.killFeedButton {
+    background-color: maroon;
+}

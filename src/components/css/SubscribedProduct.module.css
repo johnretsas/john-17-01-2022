@@ -1,0 +1,10 @@
+.container {
+    font-size: 14px;
+    padding-left: var(--gutterSm);
+    padding-right: var(--gutterSm);
+    border-radius: 4px;
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}

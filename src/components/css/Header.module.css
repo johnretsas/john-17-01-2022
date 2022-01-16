@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: gray;
+    height: 50px;
+    border-bottom: 2px solid rgba(245, 245, 245, 0.445);
+    padding-left: var(--gutterLg);
+    padding-right: var(--gutterLg);
+}

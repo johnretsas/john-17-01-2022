@@ -1,0 +1,32 @@
+.bids {
+    flex: 1;
+    padding-left: var(--gutterMd);
+}
+
+.bidsHeader {
+    width: 100%;
+    color: whitesmoke;
+    height: 30px;
+    display: flex;
+}
+
+.headerPart {
+    flex: 1;
+    display: flex;
+    justify-content: start;
+    font-size: 20px;
+    align-items: center;
+}
+
+.dataPart {
+    flex: 1;
+    display: flex;
+    justify-content: start;
+    font-size: 20px;
+    align-items: center;
+}
+
+.price {
+    color: var(--main-red);
+    text-shadow: 0 0 6px var(--main-red);
+}
