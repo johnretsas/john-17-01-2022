@@ -21,7 +21,6 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
 
     switch (action.type) {
         case INFO:
-            console.log("INFO", action.data)
             return {
                 ...state
             }
@@ -157,7 +156,6 @@ export default function socketReducer(state: SocketStore, action: SocketActionTy
                         newTotalAsks.push(newTotalAsks[i - 1] + removeZeroesFromAsk[i][1])
                     }
                 }
-                console.log(newTotalAsks[0])
 
                 // Calculate new totals for bids.
 

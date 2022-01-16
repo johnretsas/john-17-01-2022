@@ -13,7 +13,7 @@ const Header = () => {
         const spreadPercentage = (spread / average) * 100;
         return (
             <div className={styles.container}>
-                <div>Ordebook</div>
+                <div>Orderbook</div>
                 <div>Spread: {spread.toFixed(5)} ({spreadPercentage.toFixed(2)}) %</div>
                 <SubscribedProduct />
             </div>
@@ -21,7 +21,7 @@ const Header = () => {
     } else {
         return (
             <div className={styles.container}>
-                <div>Ordebook</div>
+                <div>Orderbook</div>
                 <div>Spread: ()%</div>
                 <SubscribedProduct />
             </div>

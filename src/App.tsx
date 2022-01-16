@@ -35,11 +35,8 @@ const App = () => {
         dispatch(createSocketSaveFeedAction(data))
       }
     };
-
-    // setTimeout(() => ws.send(JSON.stringify({ "event": "unsubscribe", "feed": "book_ui_1", "product_ids": ["PI_XBTUSD"] })), 1000)
-    // setTimeout(() => ws.close(), 3000)
   }, []);
-  console.log("WS", ws)
+
   return (
     <div className="App">
       <Provider store={store}>
