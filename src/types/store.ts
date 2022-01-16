@@ -7,5 +7,8 @@ export interface SocketStore {
     asks: Array<[number, number]>
     asksSet: any;
     bidsSet: any;
-    bids: Array<[number, number]>
+    bids: Array<[number, number]>;
+    totalAsks: Array<number>;
+    totalBids: Array<number>;
+    totalMax: number;
 }

@@ -1,6 +1,6 @@
 .bids {
     flex: 1;
-    padding-left: var(--gutterMd);
+    padding-left: var(--gutterSm);
 }
 
 .bidsHeader {
@@ -27,6 +27,7 @@
 }
 
 .price {
+    margin-left: var(--gutterSm);
     color: var(--main-red);
     text-shadow: 0 0 6px var(--main-red);
 }

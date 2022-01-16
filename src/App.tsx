@@ -29,7 +29,7 @@ const App = () => {
       }
     };
 
-    setTimeout(() => ws.close(), 3000)
+    setTimeout(() => ws.close(), 1000)
   }, []);
 
   return (
