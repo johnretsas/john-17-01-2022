@@ -1,6 +1,4 @@
-import { FEED, INFO, SocketActionTypes, SOCKET_ACTION } from "../app/actions/socket/types";
-import { store } from "../app/store";
-
+// IN CASE WE NEED IT.
 export const socketMiddleware = (s: any) => (next: any) => (action: any) => {
     next(action);
 }

@@ -14,7 +14,7 @@ const Header = () => {
         return (
             <div className={styles.container}>
                 <div>Orderbook</div>
-                <div>Spread: {spread.toFixed(5)} ({spreadPercentage.toFixed(2)}) %</div>
+                <div data-testid="spread">Spread: {spread.toFixed(5)} ({spreadPercentage.toFixed(2)}) %</div>
                 <SubscribedProduct />
             </div>
         )
@@ -22,7 +22,7 @@ const Header = () => {
         return (
             <div className={styles.container}>
                 <div>Orderbook</div>
-                <div>Spread: ()%</div>
+                <div data-testid="spread">Spread: ()%</div>
                 <SubscribedProduct />
             </div>
         )

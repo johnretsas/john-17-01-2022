@@ -44,7 +44,7 @@ const Utilities: FC<Props> = ({ ws, isVisible }) => {
         }
     }
 
-    return <div className={styles.container}>
+    return <div className={styles.container} data-testid="utilities">
         <div className={styles.buttons}>
             <div
                 className={styles.button + " " + styles.toggleFeedButton}

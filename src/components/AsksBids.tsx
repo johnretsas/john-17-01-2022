@@ -4,7 +4,7 @@ import styles from "./css/AsksBids.module.css";
 
 const AsksBids = () => {
     return (
-        <div className={styles.container}>
+        <div className={styles.container} data-testid="asksbids">
             <Asks />
             <Bids />
         </div>

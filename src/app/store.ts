@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers, compose } from "@reduxjs
 import { socketMiddleware } from "../middleware/socket";
 import socketReducer from "../app/reducers/socket";
 
-const rootReducer = combineReducers({socket: socketReducer, })
+const rootReducer = combineReducers({socket: socketReducer})
 const middlewareEnhancer = applyMiddleware(socketMiddleware)
 const composeEnhancers = compose(middlewareEnhancer,  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__())
 export const store = createStore(rootReducer,  composeEnhancers)
